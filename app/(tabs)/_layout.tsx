@@ -1,37 +1,46 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
+import { StyleSheet, Text, View } from "react-native";
+import React, { useEffect } from "react";
+import { Slot, SplashScreen, Stack } from "expo-router";
+import { useFonts } from "expo-font";
 
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+SplashScreen.preventAutoHideAsync(); //prevent the sc from autohiding before asset loading is complete 
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+const RootLayout = () => {
+  const [fontsLoaded, error] = useFonts({
+    "Poppins-Black": require("../../assets/fonts/Poppins-Black.ttf"),
+    "Poppins-Bold": require("../../assets/fonts/Poppins-Bold.ttf"),
+    "Poppins-ExtraBold": require("../../assets/fonts/Poppins-ExtraBold.ttf"),
+    "Poppins-ExtraLight": require("../../assets/fonts/Poppins-ExtraLight.ttf"),
+    "Poppins-Light": require("../../assets/fonts/Poppins-Light.ttf"),
+    "Poppins-Medium": require("../../assets/fonts/Poppins-Medium.ttf"),
+    "Poppins-Regular": require("../../assets/fonts/Poppins-Regular.ttf"),
+    "Poppins-SemiBold": require("../../assets/fonts/Poppins-SemiBold.ttf"),
+    "Poppins-Thin": require("../../assets/fonts/Poppins-Thin.ttf"),
+  });
+
+  useEffect(()=>{
+    if(error) throw error;
+
+    if(fontsLoaded) SplashScreen.hideAsync();
+  },[fontsLoaded,error])
+
+  if(!fontsLoaded && !error) return null;
 
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
-          ),
-        }}
-      />
-    </Tabs>
+    <Stack>
+      <Stack.Screen name="index" options={{ headerShown: false }} />
+    </Stack>
   );
-}
+};
+
+export default RootLayout;
+
+const styles = StyleSheet.create({
+  container: {
+    display: "flex",
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    color: "white",
+  },
+});
