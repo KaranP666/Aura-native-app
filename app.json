@@ -16,9 +16,11 @@
     },
     "android": {
       "adaptiveIcon": {
+       
         
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package":"com.native.aora"
     },
     "web": {
       "bundler": "metro",
