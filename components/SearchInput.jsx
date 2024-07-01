@@ -9,10 +9,10 @@ const SearchInput = ({title,value,placeholder,handleChangeText,otherStyle,...pro
     
       <View className="w-full h-16 border-2 border-black-200 px-4 bg-black-100 rounded-2xl focus:border-secondary items-center flex-row space-x-4">
         <TextInput 
-         className="text-base mt-0.5 text-white flex-1 font-pregular " 
+         className="text-base mt-0.5 text-white dark:text-white flex-1 font-pregular " 
          value={value}
-         placeholder={placeholder}
-         placeholderTextColor="7B7B8B"
+         placeholder="Search for a video topic"
+         placeholderTextColor="#CDCDE0"
          onChangeText={handleChangeText}
          secureTextEntry={title === 'Password' && !showPassword}/>
         <TouchableOpacity>
