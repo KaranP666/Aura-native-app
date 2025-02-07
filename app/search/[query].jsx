@@ -16,6 +16,9 @@ const Search = () => {
   const { query } = useLocalSearchParams();
   const { data: posts, refetch } = useAppwrite(() => searchPosts(query));
 
+  console.log(query, posts);
+  
+
   useEffect(() => {
     refetch();
   }, [query]);
@@ -30,8 +33,8 @@ const Search = () => {
             title={item.title}
             thumbnail={item.thumbnail}
             video={item.video}
-            // creator={item.creator.username}
-            // avatar={item.creator.avatar}
+            creator={item.creator.username}
+            avatar={item.creator.avatar}
           />
         )}
         ListHeaderComponent={() => (
@@ -45,7 +48,7 @@ const Search = () => {
               </Text>
 
               <View className="mt-6 mb-8">
-                <SearchInput initialQuery={query} />
+                <SearchInput initialQuery={query} refetch={refetch} />
               </View>
             </View>
           </>
